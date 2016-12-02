@@ -9,14 +9,12 @@ import requests
 from decimal import *
 from clint.textui import progress
 import hashlib
-print 1
-sDir = '"' + os.getcwd() + '/bin"'
+sDir = os.getcwd() + '/bin'
 finDir = os.getcwd() + '/finished'
 os.chdir(sDir)
 xRun = ""
-print 2
+
 def HashRK(fn, ln, email):
-    print "HashRK"
     seed1 = ln[:len(ln)-1] + email[:len(email)-1] + fn[:len(fn)-1]
     seed2 = "pR0n8O*"
     inseedlen = len(seed1) -1
@@ -38,7 +36,6 @@ def HashRK(fn, ln, email):
         
 
 def FolderCheck(maxFolderL):
-    print "FolderCheck"
     folderDir = finDir
     filesCount = os.listdir(folderDir)
     folderVolume = 0
@@ -52,7 +49,6 @@ def FolderCheck(maxFolderL):
     
 
 def FileCheck(fName):
-    print "FileCheck"
     finFiles = os.listdir(finDir)
     for i in finFiles:
         if fName in i:
@@ -60,13 +56,11 @@ def FileCheck(fName):
     return fName
 
 def get_free_space():
-    print "Get Free Space"
-    free_bytes = ctypes.c_ulonglong(0)
-    ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(os.path.dirname(os.getcwd())), None, None, ctypes.pointer(free_bytes))
-    return free_bytes.value - 60000000
+	free_bytes = ctypes.c_ulonglong(0)
+	ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(os.path.dirname(os.getcwd())), None, None, ctypes.pointer(free_bytes))
+	return free_bytes.value - 60000000
 
 def AccessPage(url,maxLength):
-    print "Access Page"
     http = urllib2.urlopen(url)
     meta = http.info()
     try:
@@ -89,7 +83,6 @@ def AccessPage(url,maxLength):
     return http.read()
 
 def VidDownload(url, vidName, maxLength, minLength):
-    print "Vid Download"
     if url[0] == '/':
         url = "http:" + url
     #print url
@@ -127,7 +120,6 @@ def VidDownload(url, vidName, maxLength, minLength):
     os.remove(os.getcwd() + '/' + fName)
 
 def PageRead(url, maxFileL):
-    print "Page Read"
     hPage = AccessPage(url, maxFileL)
     try:
         vUrls = re.findall("var player(.*)';",hPage)
@@ -179,7 +171,6 @@ def PageRead(url, maxFileL):
 #pornhub video url http://www.pornhub.com/view_video.php?viewkey=ph56bcf4c903a63
 bvUrl = "http://www.pornhub.com/view_video.php?viewkey="
 
-print "Start"
 try:
     Master = sDir + "\ph Master.txt"
     with open(Master, 'r') as f:
@@ -188,7 +179,6 @@ try:
 except Exception as e:
     pass
 
-print "Start 2"
 for i in content:
     if reads == 0:
         reads = 1
